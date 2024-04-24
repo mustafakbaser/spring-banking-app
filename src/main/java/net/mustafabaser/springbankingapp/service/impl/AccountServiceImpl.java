@@ -28,8 +28,41 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepository
                 .findById(id)
                 .orElseThrow(
-                () -> new RuntimeException("Account couldn't be found.")
+                () -> new RuntimeException("The account could not be located.")
         );
         return AccountMapper.mapAccountDto(account);
+    }
+
+    // Deposit Amount
+    @Override
+    public AccountDto deposit(long id, double amount) {
+        Account account = accountRepository
+                .findById(id)
+                .orElseThrow(
+                        () -> new RuntimeException("The account could not be located.")
+                );
+        double totalAmount = account.getBalance() + amount;
+        account.setBalance(totalAmount);
+        Account updatedAccount = accountRepository.save(account);
+        return AccountMapper.mapAccountDto(updatedAccount);
+    }
+
+    // Withdraw Amount
+    @Override
+    public AccountDto withdraw(long id, double amount) {
+        Account account = accountRepository
+                .findById(id)
+                .orElseThrow(
+                        () -> new RuntimeException("The account could not be located.")
+                );
+
+        // Exception
+        if(account.getBalance() - amount < 0) {
+            throw new RuntimeException("Insufficient balance");
+        }
+        double totalAmount = account.getBalance() - amount;
+        account.setBalance(totalAmount);
+        Account updatedAccount = accountRepository.save(account);
+        return AccountMapper.mapAccountDto(updatedAccount);
     }
 }

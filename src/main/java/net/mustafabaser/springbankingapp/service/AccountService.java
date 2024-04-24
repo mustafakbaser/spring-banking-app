@@ -8,4 +8,10 @@ public interface AccountService {
 
     // Get Account
     AccountDto getAccountById(long id);
+
+    // Update Amount: Deposit
+    AccountDto deposit(long id, double amount);
+
+    // Update Amount: Withdraw
+    AccountDto withdraw(long id, double amount);
 }
