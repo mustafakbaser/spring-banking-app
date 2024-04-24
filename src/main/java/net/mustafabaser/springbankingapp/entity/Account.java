@@ -18,8 +18,8 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="account_holder_name")
-    private String accountHolderName;
+    @Column(name="account_owner_name")
+    private String accountOwnerName;
 
     private double balance;
 }
