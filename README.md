@@ -35,6 +35,15 @@ To get started with the project, follow these steps:
 
 ## API Documentation
 
+### Endpoints
+
+- **Create Account**: `POST /accounts`
+- **Get All Accounts**: `GET /accounts`
+- **Get Account By Id**: `GET /accounts/{id}`
+- **Deposit Amount**: `PUT /accounts/{id}/deposit`
+- **Withdraw Amount**: `PUT /accounts/{id}/withdraw`
+- **Delete Account By Id**: `DELETE /accounts/{id}`
+
 For detailed API documentation and usage instructions, refer to the [API Documentation](api-documentation.md) file.
 
 ## Contribution Guidelines
