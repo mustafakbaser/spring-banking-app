@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -29,6 +30,20 @@ public class AccountController {
     public ResponseEntity<AccountDto> getAccountById(@PathVariable Long id) {
         AccountDto accountDto =accountService.getAccountById(id);
         return ResponseEntity.ok(accountDto);
+    }
+
+    // Get All Accounts Method (REST API)
+    @GetMapping
+    public ResponseEntity<List<AccountDto>> getAllAccounts() {
+        List<AccountDto> accountDto = accountService.getAllAccounts();
+        return ResponseEntity.ok(accountDto);
+    }
+
+    // Delete Account Method(REST API)
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteAccount(@PathVariable Long id) {
+        accountService.deleteAccount(id);
+        return ResponseEntity.ok("Account has been deleted!\nAccount ID: " + id);
     }
 
     // Update Balance: Deposit Method (REST API)

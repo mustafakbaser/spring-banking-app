@@ -7,6 +7,9 @@ import net.mustafabaser.springbankingapp.repository.AccountRepository;
 import net.mustafabaser.springbankingapp.service.AccountService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
@@ -31,6 +34,15 @@ public class AccountServiceImpl implements AccountService {
                 () -> new RuntimeException("The account could not be located.")
         );
         return AccountMapper.mapAccountDto(account);
+    }
+
+    // Get All Accounts
+    @Override
+    public List<AccountDto> getAllAccounts() {
+        List<Account> accounts = accountRepository.findAll();
+        return accounts.stream().map(
+                (account) -> AccountMapper.mapAccountDto(account))
+                .collect(Collectors.toList());
     }
 
     // Deposit Amount
@@ -64,5 +76,16 @@ public class AccountServiceImpl implements AccountService {
         account.setBalance(totalAmount);
         Account updatedAccount = accountRepository.save(account);
         return AccountMapper.mapAccountDto(updatedAccount);
+    }
+
+    // Deleting Account By Id
+    @Override
+    public void deleteAccount(long id) {
+        Account account = accountRepository
+                .findById(id)
+                .orElseThrow(
+                        () -> new RuntimeException("The account could not be located.")
+                );
+        accountRepository.deleteById(id);
     }
 }
